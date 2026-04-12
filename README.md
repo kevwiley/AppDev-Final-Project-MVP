@@ -8,6 +8,22 @@ This project is a REST API where users can view computer parts and builds put to
 Install dependencies using `npm install`  
 Seed the database using `node database/seed.js`  
 
+Create .env file in this format:  
+```
+# Environment
+NODE_ENV=production
+
+# Server Configuration
+PORT=3000
+
+# JWT Configuration
+JWT_SECRET=enter_key
+JWT_EXPIRES_IN=24h
+
+# Database Configuration
+DB_NAME=pcbuilder.db
+```  
+
 Tests can be run with `npm test`  
 
 Start the database using `npm start`  
