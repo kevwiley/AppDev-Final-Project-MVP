@@ -146,6 +146,14 @@ Response `Message`
 
 ---
 
+## Possible Future Implementations
+
+Price Comparison Features  
+Part Spec Comparison
+Price Range Search  
+
+---
+
 ## Project Tree
 ```
 AppDev-Final-Project-MVP/
