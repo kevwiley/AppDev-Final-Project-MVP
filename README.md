@@ -40,7 +40,7 @@ Parts have their own Ids, and these Ids are what need to be used when creating a
 ---
 ## Endpoints
 
-### `Register and Login`
+### (Updated) `Register and Login`
 
 `http://localhost:3000/api/register` - Will create new user  
 Response: `User Object`  
@@ -58,8 +58,12 @@ Response: `Token`
 Format:
 ```
 {
-  "email": "testuser@test.com",
-  "password": "123456"
+  "message": "User registered",
+  "user": {
+    "id": 3,
+    "username": "testuser",
+    "email": "testuser@test.com"
+  }
 }
 ```
 ---
