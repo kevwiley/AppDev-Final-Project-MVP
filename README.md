@@ -149,7 +149,7 @@ Response `Message`
 ## Possible Future Implementations
 
 Price Comparison Features  
-Part Spec Comparison
+Part Spec Comparison  
 Price Range Search  
 
 ---
