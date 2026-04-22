@@ -58,12 +58,8 @@ Response: `Token`
 Format:
 ```
 {
-  "message": "User registered",
-  "user": {
-    "id": 3,
-    "username": "testuser",
-    "email": "testuser@test.com"
-  }
+  "email": "testuser@test.com",
+  "password": "123456"
 }
 ```
 ---
