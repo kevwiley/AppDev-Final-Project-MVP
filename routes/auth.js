@@ -8,7 +8,7 @@ const router = express.Router();
 //new users can be registered with the post request. new users need username, email and password, and are assigned "user" role
 router.post('/register', async (req, res) => {
     try {
-        const { username, email, password, role } = req.body;
+        const { username, email, password } = req.body; //role removed from destructure
 
         if (!username || !email || !password) {
             return res.status(400).json({ error: 'All fields required' });
@@ -25,10 +25,10 @@ router.post('/register', async (req, res) => {
             username,
             email,
             password: hash,
-            role: role || 'user'
+            role: 'user' //hardcoded, never taken from request body
         });
 
-        res.status(201).json({ message: 'User registered', user });
+        res.status(201).json({ message: 'User registered', user: { id: user.id, username: user.username, email: user.email } });
 
     } catch {
         res.status(500).json({ error: 'Registration failed' });
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign(
             { id: user.id, role: user.role },
             process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN }
+            { expiresIn: process.env.JWT_EXPIRES_IN || '24h' } //fallback so login never 500s on missing env var
         );
 
         res.json({ token });

@@ -1,15 +1,33 @@
 const request = require('supertest');
 const app = require('../server.js');
 const { db } = require('../database/models');
+const { User } = require('../database/models');
+const bcrypt = require('bcryptjs'); 
 
 let token;
 let partId;
 let buildId;
 let testEmail;
+let adminToken;
 
 //Resets DB before tests run
 beforeAll(async () => {
     await db.sync({ force: true });
+
+    //create admin directly for testing
+    await User.create({
+        username: 'adminuser',
+        email: 'admin@test.com',
+        password: await bcrypt.hash('adminpass', 10),
+        role: 'admin'
+    });
+
+    const res = await request(app).post('/api/login').send({
+        email: 'admin@test.com',
+        password: 'adminpass'
+    });
+
+    adminToken = res.body.token;
 });
 
 describe('API Tests', () => {
@@ -103,7 +121,7 @@ describe('API Tests', () => {
     test('Delete Part (Success)', async () => {
         const res = await request(app)
             .delete(`/api/parts/${partId}`)
-            .set('Authorization', `Bearer ${token}`);
+            .set('Authorization', `Bearer ${adminToken}`);
 
         expect(res.statusCode).toBe(200);
     });
@@ -111,7 +129,7 @@ describe('API Tests', () => {
     test('Delete Build (Success)', async () => {
         const res = await request(app)
             .delete(`/api/builds/${buildId}`)
-            .set('Authorization', `Bearer ${token}`);
+            .set('Authorization', `Bearer ${adminToken}`);
 
         expect(res.statusCode).toBe(200);
     });
